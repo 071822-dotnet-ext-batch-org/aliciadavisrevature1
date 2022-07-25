@@ -58,11 +58,11 @@ namespace rpsconsole2
             {
         
              //If neither player has won at least 2 games
-            while ((player1Wins < 2) || (computerWins < 2))
-            {
+            //while ((player1Wins < 2) || (computerWins < 2))
+            //{
                 //a while loop to keep prompting the user for choice til there isn't a tie
-                //while (isTie)
-                //{
+                while (isTie)
+                {
                 
                 
                  //Get the users choice
@@ -104,6 +104,10 @@ namespace rpsconsole2
                             Console.WriteLine($"Sorry, {computerName} won this game.");
                             isTie = false;
                             }
+                            else 
+                            {
+                            isTie = true;
+                            }
                     }        
                     else
                     {// if the computer won
@@ -122,11 +126,15 @@ namespace rpsconsole2
                             Console.WriteLine($"Congrats, {player1Name}! You won!");
                             isTie = false;
                             }
-                    //}
+                            else
+                            {
+                            isTie = true;
+                            }
+                    }
                     
                 }
 
-            }
+            //}
                 //Ask if they want to play again (if using rounds, each game would need to be stored.)
                 Console.WriteLine($"Hey {player1Name}, would you like to play again\n\tEnter 'Y' to play again or 'N' to quit the program.");
                 playAgain = Console.ReadLine();
