@@ -2,7 +2,7 @@
 
 namespace polyinherit
 {
-class Program 
+class Program //Compile time
 {
   static void Main(string[] args) //The static modifier is not instantiated or extended. The members within are all static. This is a container for the static members.
   {
