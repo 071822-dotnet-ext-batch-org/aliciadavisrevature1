@@ -2,7 +2,7 @@ using System;
 
 namespace polyinherit
 {
-class Cat : Animal  // Derived class (child). Use the ":" in order to inherit from the class "Animal". Has single responsibility to define Cat.
+class Cat : Animal  // Derived class (child). Use the ":" in order to inherit from the class "Animal". Has single responsibility to define Cat. Run Time
 {
   public override void animalSound() //The method is overriding a declared virtual method that was inherited from the base class. Is requried to modify the virtual implementation of the inherited method.
   {
