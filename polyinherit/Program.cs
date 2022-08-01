@@ -16,6 +16,8 @@ class Program
     myDog.animalSound();
     myFish.animalSound();
 
+    Console.WriteLine(); //Create a space between commands
+
     myAnimal.animalLimbs();
     myCat.animalLimbs();
     myDog.animalLimbs();
