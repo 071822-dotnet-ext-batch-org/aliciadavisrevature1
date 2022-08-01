@@ -1,7 +1,7 @@
 arr.Sort(); //sort the array
 long mini = 0; //long 64 bit version of minimum sum initialized at value of 0
 long maxi = 0; //long 64 bit version of maximum sum initialized at value of 0
-var array = arr.ToArray(); //build array to change var to what it contains. Should be one and not merely short integer
+var array = arr.ToArray(); //build array to change var to what it contains. Should be long one and not merely short integer
 
 for (int i = 0; i < 4; i++) //iterate over first 4 of the 5 values counting up
 {
