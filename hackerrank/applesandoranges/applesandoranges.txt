@@ -1,0 +1,20 @@
+    int appleHits = 0; //Store the number of apples that hit Sam's house
+    int orangeHits = 0; //Store the number of oranges that hit Sam's house
+
+    foreach(int apple in apples) //Iterate through the apples that fall froom the tree
+    {
+        if(apple + a >= s && apple + a <= t) //If that apple that falls from the tree (a) is between the start (s) of Sam's house and the end (t) of Sam's house
+        {
+            appleHits++; //Add the number of apples that hit Sam's house here
+        }
+    }//EoAppleLoop
+    Console.WriteLine(appleHits); //Print the number of apples that fall and hit Sam's house
+
+    foreach(int orange in oranges) //Iterate through the oranges that fall from the tree
+    {
+        if(orange + b >= s && orange + b <= t) //If the orange that falls from the tree (b) is between the start (s) of Sam's house and the end (t) of Sam's house
+        {
+            orangeHits++; //Add the number of oranges that hit Sam's house here
+        }
+    }//EoOrangeLoop
+    Console.WriteLine(orangeHits); //Print the number of oranges that hit Sam's house here
