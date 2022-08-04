@@ -1,0 +1,67 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Result
+{
+
+    /*
+     * Complete the 'dayOfProgrammer' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts INTEGER year as parameter.
+     */
+
+    public static string dayOfProgrammer(int year)
+    {
+        int day = 0;//declare integer type for the day variable and set to 0
+        string month = "09";//declare a string type for the month variable and set to 09 for September. Simple way to maintain leading 0
+
+        if(year == 1918)//The year Russia switched from the Julien to the Gregorian calendar
+        {
+            day = 26; //The 256th Day of Programmer in Russia in the year 1918 because of a subtracted 13 days to the Common year between January    and February
+        }
+
+        else if((year % 4 == 0) && (year < 1918 || year % 400 == 0 || year % 100 != 0)) //Grab a leap year if it is 1)Evenly divisible by 4 AND A)Older than the year 1918 OR B)Not evenly divisible by 100 OR C)Evenly divisible by 400
+        {
+            day = 12; //The 256th Day of Programmer in Leap year minus the number of days in the first 8 months (244)
+        }
+
+        else
+        {
+            day = 13; //The 256th Day of the Programmer in a Common year minus the number of days in the first 8 months (243)
+        }
+        //EoL
+        StringBuilder stringBuilder = new StringBuilder(); //Create a new string
+        stringBuilder.AppendFormat("{0}.{1}.{2}", day, month, year);//Give the new string the format dd.mm.yyyy
+        return stringBuilder.ToString();//Provide the formatted date for the Day of the Programmer
+    }
+
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        int year = Convert.ToInt32(Console.ReadLine().Trim());
+
+        string result = Result.dayOfProgrammer(year);
+
+        textWriter.WriteLine(result);
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
+}
