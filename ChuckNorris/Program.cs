@@ -20,6 +20,16 @@ namespace ChuckNorris
                     string? json = result.Content.ReadAsStringAsync().Result; //Convert result to JSON   
                 
                     Console.WriteLine(json); //Output the JSON
+
+                    Console.WriteLine(); //Create a line space
+
+                    Uri? endpoint2 = new Uri("http://api.icndb.com/jokes/random?exclude=[explicit]"); //Source url changes category of jokes retrieved to nerdy ones
+
+                    HttpResponseMessage? result2 = source.GetAsync(endpoint2).Result; //HTTP response messasge and status
+            
+                    string? json2 = result2.Content.ReadAsStringAsync().Result; //Convert result to JSON   
+                
+                    Console.WriteLine(json2); //Output the JSON
                 }
         }//EoM
     }//EoC
