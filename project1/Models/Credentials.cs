@@ -10,5 +10,12 @@ namespace Models
         public Guid UserNameID { get; set; } = Guid.NewGuid();
         public string UserName { get; set; }
         public string Password { get; set; }
+        public Credentials() {}
+        //parameterized constructor
+        public Credentials(string username, string passcode)
+        {
+            this.UserName = username;
+            this.Password = passcode;
+        }
     }
 }

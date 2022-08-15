@@ -8,8 +8,8 @@ namespace BusinessLayer
 {
     public interface IGetIt
     {
-        public Credentials GetCredentials();
-        public Employee GetEmployee();
+        public Credentials GetC1();
+        public Employee GetE1();
         public bool IsSheManager();
         public int ValidateReimbursementStatus();
     }

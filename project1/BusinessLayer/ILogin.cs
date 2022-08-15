@@ -7,7 +7,7 @@ namespace BusinessLayer
 {
     public interface ILogin
     {
-        public Task <bool> UserNameAsync(string[] x);
+        public  bool ExistsUserName(string[] x);
         public bool PassCode(string[] x);
         public void LogSession();
         public bool ValidateUserCredential(string userLoginStr);

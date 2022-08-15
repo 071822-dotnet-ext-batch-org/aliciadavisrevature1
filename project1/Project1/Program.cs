@@ -7,36 +7,27 @@ using Models;
 
 namespace Project1
 {
-    class using Greet;
-    using Grpc.Net.Client;
-    using System;
-    using System.Threading.Tasks;
-    
-    namespace Client
-    {
         public class Program
         {
             public static async Task Main(string[] args)
             {
-                try
+                LoginSession loginsession = new LoginSession();
+                Console.WriteLine("\t\tWelcome to the Employee Reimbursement System\n");
+                Console.WriteLine("What is your username and password?");
+
+                while (true)
                 {
-                    using var channel = GrpcChannel.ForAddress("http://localhost:5000");
-                    var client = new Greeter.GreeterClient(channel);
-    
-                    var reply = await client.SayHelloAsync(new HelloRequest { Name = "GreeterClient" });
-                    Console.WriteLine("Greeting: " + reply.Message);
+                    bool userInDb = false;
+
+                    if (userInDb) 
+                    {
+                        Console.WriteLine($"Hello, {loginsession.GetUser")
+                    }
+
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"ERROR: {ex.Message}");
-                }
-    
-                Console.WriteLine("Shutting down");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadKey();
             }
         }
-    }
 }
+
 
 
