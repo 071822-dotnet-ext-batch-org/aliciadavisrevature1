@@ -7,10 +7,13 @@ namespace Models
 {
     public class Employee : Credentials //Inherit Credentials for the respective Employee
     {
-        public Employee() {} //parameterized constructor
-        public Employee(Guid username)
+        public Employee() {} 
+        //parameterized constructor
+        public Employee(string fname, string lname, bool manager)
         {
-            this.UserNameID = username;
+            this.Fname = fname;
+            this.Lname = lname;
+            this.Manager = manager;
         }
         public Guid EmployeeID { get; set; } = Guid.NewGuid();
         public string Fname { get; set; }

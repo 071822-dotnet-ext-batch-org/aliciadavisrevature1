@@ -14,5 +14,4 @@ public interface IStatus
             Denied = 2,
         }
     }
-
 }

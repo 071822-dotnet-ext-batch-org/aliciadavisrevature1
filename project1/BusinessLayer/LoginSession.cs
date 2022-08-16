@@ -27,6 +27,20 @@ namespace BusinessLayer
             }
         }*/
 
+        public async Task<Employee> IsSheEmployeeAsync(string fname = "default", string lname = "default", bool manager = false)
+        {
+            Employee? e = await _repo.IsSheEmployeeAsync(fname, lname, manager);
+            if (e == null)
+            {
+                this._CurrentEmployee = new Employee(fname, lname, manager);
+                return this._CurrentEmployee;
+            }
+            else
+            {
+                this._CurrentEmployee = e;
+                return this._CurrentEmployee;
+            }
+        }
         public async Task <bool>  IsSheManagerAsync(bool Manager)
         {
             if(Manager == true)

@@ -62,24 +62,26 @@ namespace RepoLayer
             }
         }
         
-        public async Task<Employee?> IsSheEmployeeAsync(Guid EmployID)
+        public async Task<Employee?> IsSheEmployeeAsync(string fname, string lname, bool manager)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            using (SqlCommand command = new SqlCommand($"SELECT Top 1 EmployeeID, Fname, Lname, Manager FROM Employees WHERE EmployeeID = @y", conn))
+            using (SqlCommand command = new SqlCommand($"SELECT Top 1 EmployeeID, Fname, Lname, Manager FROM Employees WHERE Fname = @fname AND Lname = @lname AND Manager = @manager", conn))
             {
-                command.Parameters.AddWithValue("@y", EmployID);
+                command.Parameters.AddWithValue("@fname", fname);
+                command.Parameters.AddWithValue("@lname", lname);
+                command.Parameters.AddWithValue("@manager", manager);
                 conn.Open();
                 SqlDataReader? ret = await command.ExecuteReaderAsync();
 
                 if(ret.Read())
                 {
-                    Employee q = new Employee();
-                    q.EmployeeID = ret.GetGuid(0);
-                    q.Fname = ret.GetString(1);
-                    q.Lname = ret.GetString(2);
-                    q.Manager = ret.GetBoolean(5);
+                    Employee e = new Employee();
+                    e.EmployeeID = ret.GetGuid(0);
+                    e.Fname = ret.GetString(1);
+                    e.Lname = ret.GetString(2);
+                    e.Manager = ret.GetBoolean(5);
                     conn.Close();
-                    return q;
+                    return e;
                 }
                 else
                 {
@@ -99,13 +101,13 @@ namespace RepoLayer
 
                 if(ret.Read())
                 {
-                    Employee q = new Employee();
-                    q.EmployeeID = ret.GetGuid(0);
-                    q.Fname = ret.GetString(1);
-                    q.Lname = ret.GetString(2);
-                    q.Manager = ret.GetBoolean(5);
+                    Employee e = new Employee();
+                    e.EmployeeID = ret.GetGuid(0);
+                    e.Fname = ret.GetString(1);
+                    e.Lname = ret.GetString(2);
+                    e.Manager = ret.GetBoolean(5);
                     conn.Close();
-                    return q;
+                    return e;
                 }
                 else
                 {
