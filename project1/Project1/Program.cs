@@ -13,10 +13,10 @@ namespace Project1
             {
                 LoginSession loginsession = new LoginSession();
                 Console.WriteLine("\t\tWelcome to the Employee Reimbursement System\n");
-                Console.WriteLine("Enter a username and password");
 
                 while (true)
                 {
+                    Console.WriteLine("Enter a username and password");
                     bool userInDb = false;
 
                     if (userInDb) 
@@ -25,9 +25,9 @@ namespace Project1
                     }
                     else
                     {
-                        Console.WriteLine("What is your first and last name?");
                         Console.WriteLine($"Hello, {loginsession.GetE1().Fname} {loginsession.GetE1().Lname}. The username, {loginsession.GetC1().UserName}, is your new login.");
                     }
+                    
                 }
             }
         }
