@@ -5,21 +5,23 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Employee : Credentials //Inherit Credentials for the respective Employee
+    public class Employee //: Credentials //Inherit Credentials for the respective Employee
     {
         public Employee() {} 
         //parameterized constructor
-        public Employee(string fname, string lname, bool manager)
+        public Employee(string fname, string lname, bool manager, string username, string passcode)
         {
             this.Fname = fname;
             this.Lname = lname;
             this.Manager = manager;
+            this.Username = username;
+            this.Password = passcode;
         }
         public int EmployeeID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
-        public DateTime DoB { get; set; } = new DateTime(1920, 1, 1);
-        public bool Gender { get; set; }//true == female, false == male
+        public string Username { get; set; }
+        public string Password { get; set; }
         public bool Manager {get; set;}//true == yes, false == no
 
 

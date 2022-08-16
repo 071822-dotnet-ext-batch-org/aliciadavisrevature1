@@ -10,7 +10,7 @@ namespace BusinessLayer
 
         //readonly List<Employee> _empdirectory = new List<Employee>; //Create an Employee Directory to house all the employees
         //private readonly List<Credentials> _logins = new List<Credentials>(); //Create a catalog of login credentials
-        private Credentials _CurrentLoginSession;
+        private Employee _CurrentLoginSession;
         private Employee _CurrentEmployee;
 
         /*public Credentials ExistsUserName(string username, string passcode)
@@ -28,12 +28,12 @@ namespace BusinessLayer
             }
         }*/
 
-        public async Task<Credentials> ExistsUserNameAsync(string username = "default", string passcode = "default")
+        public async Task<Employee> ExistsUserNameAsync(string username = "default", string passcode = "default")
         {
-            Credentials? c = await _repo.ExistsUserNameAsync(username, passcode);
+            Employee? c = await _repo.ExistsUserNameAsync(username, passcode);
             if (c == null)
             {
-                this._CurrentLoginSession = new Credentials(username, passcode);
+                this._CurrentLoginSession = new Employee(username, passcode);
                 return this._CurrentLoginSession;
             }
             else
@@ -42,20 +42,7 @@ namespace BusinessLayer
                 return this._CurrentLoginSession;
             }
         }
-        public async Task<Employee> IsSheEmployeeAsync(string fname = "default", string lname = "default", bool manager = false)
-        {
-            Employee? e = await _repo.IsSheEmployeeAsync(fname, lname, manager);
-            if (e == null)
-            {
-                this._CurrentEmployee = new Employee(fname, lname, manager);
-                return this._CurrentEmployee;
-            }
-            else
-            {
-                this._CurrentEmployee = e;
-                return this._CurrentEmployee;
-            }
-        }
+
         public async Task <bool>  IsSheManagerAsync(bool Manager)
         {
             if(Manager == true)
@@ -92,7 +79,7 @@ namespace BusinessLayer
             return this._CurrentEmployee;
         }
 
-        public Credentials GetC1()
+        public Employee GetC1()
         {
             return this._CurrentLoginSession;
         }
@@ -133,3 +120,18 @@ namespace BusinessLayer
         }
     }
 }
+
+       /* public async Task<Employee> IsSheEmployeeAsync(string fname = "default", string lname = "default", bool manager = false)
+        {
+            Employee? e = await _repo.IsSheEmployeeAsync(fname, lname, manager);
+            if (e == null)
+            {
+                this._CurrentEmployee = new Employee(fname, lname, manager);
+                return this._CurrentEmployee;
+            }
+            else
+            {
+                this._CurrentEmployee = e;
+                return this._CurrentEmployee;
+            }
+        }*/
