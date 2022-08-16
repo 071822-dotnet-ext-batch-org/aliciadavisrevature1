@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Models;
 using RepoLayer;
 
@@ -27,6 +28,20 @@ namespace BusinessLayer
             }
         }*/
 
+        public async Task<Credentials> ExistsUserNameAsync(string username = "default", string passcode = "default")
+        {
+            Credentials? c = await _repo.ExistsUserNameAsync(username, passcode);
+            if (c == null)
+            {
+                this._CurrentLoginSession = new Credentials(username, passcode);
+                return this._CurrentLoginSession;
+            }
+            else
+            {
+                this._CurrentLoginSession = c;
+                return this._CurrentLoginSession;
+            }
+        }
         public async Task<Employee> IsSheEmployeeAsync(string fname = "default", string lname = "default", bool manager = false)
         {
             Employee? e = await _repo.IsSheEmployeeAsync(fname, lname, manager);
@@ -113,9 +128,5 @@ namespace BusinessLayer
             throw new NotImplementedException();
         }
 
-        bool ILogin.ExistsUserName(string[] x)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

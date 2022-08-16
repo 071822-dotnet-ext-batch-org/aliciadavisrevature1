@@ -9,7 +9,7 @@ namespace BusinessLayer
     public interface ILogin
     {
         public Task<Employee> IsSheEmployeeAsync(string x, string y, bool z);
-        public  bool ExistsUserName(string[] x);
+        public  Task<Credentials> ExistsUserNameAsync(string x, string y);
         public bool PassCode(string[] x);
         public void LogSession();
         public bool ValidateUserCredential(string userLoginStr);

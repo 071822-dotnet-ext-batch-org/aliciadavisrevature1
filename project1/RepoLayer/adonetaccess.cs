@@ -12,7 +12,7 @@ namespace RepoLayer
     public class adonetaccess
     {
         //private static readonly SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        public Credentials? ExistsUserName(string username, string passcode)
+        public async Task<Credentials?> ExistsUserNameAsync(string username, string passcode)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             using (SqlCommand command = new SqlCommand($"SELECT Top 1 UserNameID UserName Password Fname Lname Manager EmployeeID FROM Credentials, Employees WHERE UserName = @username AND Password = @passcode", conn))
@@ -20,7 +20,7 @@ namespace RepoLayer
                 command.Parameters.AddWithValue("@username", username);//adding dynamic data will protect against SQL Injection
                 command.Parameters.AddWithValue("@passcode", passcode);
                 conn.Open();
-                SqlDataReader? ret = command.ExecuteReader();
+                SqlDataReader? ret = await command.ExecuteReaderAsync();
                 if(ret.Read())
                 {
                     Credentials c = new Credentials();
