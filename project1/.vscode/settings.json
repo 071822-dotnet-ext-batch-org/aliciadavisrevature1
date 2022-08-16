@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Project1",
+            "connectString": "Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=GroupProjectSeedData;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+        }
+    ]
+}
