@@ -15,7 +15,7 @@ namespace Models
             this.Lname = lname;
             this.Manager = manager;
         }
-        public Guid EmployeeID { get; set; } = Guid.NewGuid();
+        public int EmployeeID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
         public DateTime DoB { get; set; } = new DateTime(1920, 1, 1);

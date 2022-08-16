@@ -7,15 +7,17 @@ namespace Models
 {
     public class Ticket : Employee, IStatus
     {
-        public Guid TicketID { get; set; } = Guid.NewGuid();
+        public int TicketID { get; set; }
         public double Amount { get; set; }
         public string Description { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
         public Ticket() {} //parameterized constructor
-        public Ticket(Guid employee)
+        public Ticket(double amount, string description, int status )
         {
-            this.EmployeeID = employee;
+            this.Amount = amount;
+            this.Description = description;
+            this.Status = status;
         }
     }
 }

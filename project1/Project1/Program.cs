@@ -20,16 +20,30 @@ namespace Project1
                     //Create a new login session within LoginSession Class instance
                     await loginsession.IsSheEmployeeAsync();
 
+                    //Get login credentials
                     Console.WriteLine("Enter a username and password");
                     bool userInDb = false;
 
-                    if (userInDb) 
+                    if (userInDb) //If user is in the DB
                     {
                         Console.WriteLine($"Hello, {loginsession.GetE1().Fname} {loginsession.GetE1().Lname}.");
                     }
-                    else
+                    else //If user is not in DB
                     {
+                        Console.WriteLine("Enter your First and Last Names");
                         Console.WriteLine($"Hello, {loginsession.GetE1().Fname} {loginsession.GetE1().Lname}. The username, {loginsession.GetC1().UserName}, is your new login.");
+                    }
+
+                    //loop for reimbursement system
+                    bool IsSheManagerAsync = false;
+                    if(IsSheManagerAsync == true)
+                    {
+                        Console.WriteLine($"All Reimbursement Tickets {Get")
+                        Console.WriteLine($"Update {IStatus.Status.Pending} reimbursement tickets. 1 for Approved or 2 for Denied.}")
+                        if ()
+                        {
+                            
+                        }
                     }
 
                 }//EofFirstWhileLoop

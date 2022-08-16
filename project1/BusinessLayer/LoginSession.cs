@@ -65,7 +65,11 @@ namespace BusinessLayer
             else return false;
         }
 
-
+        Ticket IGetIt.GetTicket()
+        {
+            throw new NotImplementedException();
+        }
+        
         public int UpdateTicket(int managerChoice)
         {
             managerChoice = 0;
@@ -127,6 +131,5 @@ namespace BusinessLayer
         {
             throw new NotImplementedException();
         }
-
     }
 }

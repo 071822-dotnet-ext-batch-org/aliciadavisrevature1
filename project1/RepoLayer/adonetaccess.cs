@@ -15,7 +15,7 @@ namespace RepoLayer
         public async Task<Credentials?> ExistsUserNameAsync(string username, string passcode)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            using (SqlCommand command = new SqlCommand($"SELECT Top 1 UserNameID UserName Password Fname Lname Manager EmployeeID FROM Credentials, Employees WHERE UserName = @username AND Password = @passcode", conn))
+            using (SqlCommand command = new SqlCommand($"SELECT Top 1 EmployeeID Username Password Fname Lname Manager FROM Employees WHERE Username = @username AND Password = @passcode", conn))
             {
                 command.Parameters.AddWithValue("@username", username);//adding dynamic data will protect against SQL Injection
                 command.Parameters.AddWithValue("@passcode", passcode);
@@ -24,8 +24,7 @@ namespace RepoLayer
                 if(ret.Read())
                 {
                     Credentials c = new Credentials();
-                    c.UserNameID = ret.GetGuid(0);
-                    c.UserName = ret.GetString(1);
+                    c.Username = ret.GetString(1);
                     c.Password = ret.GetString(2);
                     conn.Close();
                     return c;

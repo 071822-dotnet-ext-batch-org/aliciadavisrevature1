@@ -7,7 +7,7 @@ namespace Models
 {
     public class Credentials
     {
-        public Guid UserNameID { get; set; } = Guid.NewGuid();
+        public int UserNameID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public Credentials() {}

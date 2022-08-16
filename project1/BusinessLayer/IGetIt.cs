@@ -10,7 +10,9 @@ namespace BusinessLayer
     {
         public Credentials GetC1();
         public Employee GetE1();
+        public Ticket GetTicket();
         public bool IsSheManager();
         public int ValidateReimbursementStatus();
+        Task<bool> IsSheManagerAsync(bool Manager);
     }
 }
