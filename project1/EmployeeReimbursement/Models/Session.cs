@@ -8,6 +8,6 @@ namespace Models
     public class Session
     {
         public Employee E1 { get; set; } = new Employee();
-        public Credentials C1 { get; set; } = new Credentials();
+        public Employee C1 { get; set; } = new Employee();
     }
 }

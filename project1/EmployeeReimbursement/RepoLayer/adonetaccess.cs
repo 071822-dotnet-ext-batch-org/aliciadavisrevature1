@@ -12,7 +12,7 @@ namespace RepoLayer
     public class adonetaccess
     {
         //private static readonly SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        public async Task<Employee?> ExistsUserNameAsync(string username, string passcode)
+        public async Task<Employee?> ExistsUserNameAsync(string username, string passcode, bool manager, string fname, string lname)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             using (SqlCommand command = new SqlCommand($"SELECT Top 1 EmployeeID Username Password Fname Lname Manager FROM Employees WHERE Username = @username AND Password = @passcode", conn))
@@ -76,7 +76,7 @@ namespace RepoLayer
                 if(ret.Read())
                 {
                     Employee e = new Employee();
-                    e.EmployeeID = ret.GetInt32(0);
+                    e.EmployeeID = ret.GetGuid(0);
                     e.Fname = ret.GetString(1);
                     e.Lname = ret.GetString(2);
                     e.Manager = ret.GetBoolean(3);
@@ -102,12 +102,12 @@ namespace RepoLayer
 
                 if (ret.Read())
                 {
-                    Ticket t = new Ticket();
-                    t.TicketID = ret.GetInt32(0);
+                    Ticket? t = null;
+                    t.TicketID = ret.GetGuid(0);
                     t.Amount = ret.GetDouble(1);
                     t.Description = ret.GetString(2);
                     t.Status = ret.GetInt32(3);
-                    t.EmployeeID = ret.GetInt32(4);
+                    t.EmployeeID = ret.GetGuid(4);
                     conn.Close();
                     return t;
                 }
@@ -136,13 +136,13 @@ namespace RepoLayer
         public async Task<int> SubmitTicketAsync (Ticket t)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            using (SqlCommand command = new SqlCommand($"INSERT INTO Tickets VALUES (@ticketID @amount @description @status @employID)", conn))
+            using (SqlCommand command = new SqlCommand($"INSERT INTO Tickets VALUES (@ticketid @amount @description @status @employeeid)", conn))
             {
-                command.Parameters.AddWithValue("@ticketID", t.TicketID);
+                command.Parameters.AddWithValue("@ticketid", t.TicketID);
                 command.Parameters.AddWithValue("@amount", t.Amount);
                 command.Parameters.AddWithValue("@description", t.Description);
                 command.Parameters.AddWithValue("@status", t.Status);
-                command.Parameters.AddWithValue("@employID", t.EmployeeID);
+                command.Parameters.AddWithValue("@employeeid", t.EmployeeID);
                 conn.Open();
                 int ret = await command.ExecuteNonQueryAsync();
 

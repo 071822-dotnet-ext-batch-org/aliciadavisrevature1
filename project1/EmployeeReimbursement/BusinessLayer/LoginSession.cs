@@ -28,12 +28,12 @@ namespace BusinessLayer
             }
         }*/
 
-        public async Task<Employee> ExistsUserNameAsync(string username = "default", string passcode = "default")
+        public async Task<Employee> ExistsUserNameAsync(string username = "default", string passcode = "default", bool manager = false, string fname ="default", string lname = "default")
         {
-            Employee? c = await _repo.ExistsUserNameAsync(username, passcode);
+            Employee? c = await _repo.ExistsUserNameAsync(username, passcode, manager, fname, lname);
             if (c == null)
             {
-                this._CurrentLoginSession = new Employee(username, passcode);
+                this._CurrentLoginSession = new Employee(username, passcode, manager, fname, lname);
                 return this._CurrentLoginSession;
             }
             else
@@ -115,6 +115,11 @@ namespace BusinessLayer
         }
 
         void ILogin.GetAnError()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Employee> ILogin.IsSheEmployeeAsync(string x, string y, bool z)
         {
             throw new NotImplementedException();
         }

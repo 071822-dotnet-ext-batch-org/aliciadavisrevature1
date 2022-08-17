@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Employee //: Credentials //Inherit Credentials for the respective Employee
+    public class Employee 
     {
-        public Employee() {} 
-        //parameterized constructor
+        public Employee()
+        {
+        }
+
+        //public Employee() {} //parameterized constructor
         public Employee(string fname, string lname, bool manager, string username, string passcode)
         {
             this.Fname = fname;
@@ -17,7 +20,8 @@ namespace Models
             this.Username = username;
             this.Password = passcode;
         }
-        public int EmployeeID { get; set; }
+
+        public Guid EmployeeID { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string Username { get; set; }
@@ -27,3 +31,5 @@ namespace Models
 
     }//EoC
 }//EoN
+
+//: Credentials //Inherit Credentials for the respective Employee
