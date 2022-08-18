@@ -1,0 +1,14 @@
+        int highHurdle = height.Max(); //Get highest hurdle height from the group
+        int drinkPotion = 0; //Get the number of doses of the potion the character should drink. Set initially to 0
+
+        if (k < highHurdle) //If the maximum height the character can jump is less than the highest hurdle height in the group
+        {
+            drinkPotion = highHurdle - k; //Get the number of doses of potion the character should drink by subtracting the heights of the hurdle and the maximum character jump
+        }
+
+        else //If maximum height the character can jump is more than or equal to the highest hurdle height in the group
+        {
+            return drinkPotion; //Return the default value of the number of potion doses to drink (0)
+        }
+        //EoL
+        return drinkPotion; //Return either the calculated or default number of potion doses to drink
