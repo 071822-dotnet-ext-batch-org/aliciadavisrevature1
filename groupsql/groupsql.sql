@@ -122,6 +122,9 @@ LEFT JOIN Addresses A on O.FK_Address = A.AddressId;
 SELECT FirstName, LastName As "That Person", NumberStreet, City, ZipCode
 FROM Customers C 
 RIGHT JOIN [dbo].[CustomerAddressJunction] J ON C.CustomerId = FK_Customer
+
+RIGHT JOIN Addresses A on J.FK_Address = A.AddressId;
+
 RIGHT JOIN Addresses A on J.FK_Address = A.AddressId;
 
 --Query 4 Insertions, Deletions with Unions and Triggers
