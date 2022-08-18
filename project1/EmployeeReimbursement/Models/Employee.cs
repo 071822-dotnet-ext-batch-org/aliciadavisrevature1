@@ -7,13 +7,10 @@ namespace Models
 {
     public class Employee 
     {
-        public Employee()
-        {
-        }
-
         //public Employee() {} //parameterized constructor
-        public Employee(string fname, string lname, bool manager, string username, string passcode)
+        public Employee(Guid employeeid, string fname, string lname, bool manager, string username, string passcode)
         {
+            this.EmployeeID = employeeid;
             this.Fname = fname;
             this.Lname = lname;
             this.Manager = manager;
@@ -21,14 +18,13 @@ namespace Models
             this.Password = passcode;
         }
 
-        public Guid EmployeeID { get; set; }
+        public Guid EmployeeID { get; set; }//Unique Identifier
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool Manager {get; set;}//true == yes, false == no
-
-
+        public string Passcode { get; }
     }//EoC
 }//EoN
 

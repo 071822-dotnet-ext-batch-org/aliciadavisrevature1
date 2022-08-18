@@ -5,32 +5,23 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Ticket : Employee, IStatus
+    public class Ticket : IStatus
     {
         //public Ticket() {} //parameterized constructor
-        public Ticket(double amount, string description, int status)
+        public Ticket(decimal amount, string description, int status, Guid ticketid, Guid employeeid)
         {
             this.Amount = amount;
             this.Description = description;
             this.Status = status;
+            this.TicketID = ticketid;
+            this.EmployeeID = employeeid;
         }
 
-        public Ticket()
-        {
-        }
-
-        private int employeeID;
-
+        new public Guid EmployeeID { get; set; }
         public Guid TicketID { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Description { get; set; }
-
         public int Status { get; set; }
-        /*public int EmployeeID
-        {
-            get { return employeeID; }
-            set { employeeID = value; }
-        }*/
 
     }
 }

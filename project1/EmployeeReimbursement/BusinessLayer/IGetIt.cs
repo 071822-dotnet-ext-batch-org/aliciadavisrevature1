@@ -14,5 +14,7 @@ namespace BusinessLayer
         public bool IsSheManager();
         public int ValidateReimbursementStatus();
         Task<bool> IsSheManagerAsync(bool Manager);
+        //Task<string> PendingTicketsAsync();
+        //Task<List<Ticket>> PendingTicketsAsync(string type);
     }
 }

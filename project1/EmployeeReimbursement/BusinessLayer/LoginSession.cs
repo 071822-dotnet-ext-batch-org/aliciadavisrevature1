@@ -28,12 +28,12 @@ namespace BusinessLayer
             }
         }*/
 
-        public async Task<Employee> ExistsUserNameAsync(string username = "default", string passcode = "default", bool manager = false, string fname ="default", string lname = "default")
+        public async Task<Employee> ExistsUserNameAsync(Guid employeeid, string username = "default", string passcode = "default", bool manager = false, string fname ="default", string lname = "default")
         {
-            Employee? c = await _repo.ExistsUserNameAsync(username, passcode, manager, fname, lname);
+            Employee? c = await _repo.ExistsUserNameAsync(employeeid, username, passcode, manager, fname, lname);
             if (c == null)
             {
-                this._CurrentLoginSession = new Employee(username, passcode, manager, fname, lname);
+                this._CurrentLoginSession = new Employee(employeeid, username, passcode, manager, fname, lname);
                 return this._CurrentLoginSession;
             }
             else
@@ -52,11 +52,27 @@ namespace BusinessLayer
             else return false;
         }
 
+       private readonly adonetaccess _repoLayer;
+       public LoginSession()
+        {
+            this._repoLayer = new adonetaccess();
+        }
+
+        public async Task <List<Ticket>?> PendingTicketsAsync(int type)
+        {
+            List<Ticket> list = await this._repoLayer.PendingTicketsAsync(type);
+            if (list != null)
+            {
+                return list;
+            }
+
+            return null;
+        }
         Ticket IGetIt.GetTicket()
         {
             throw new NotImplementedException();
         }
-        
+
         public int UpdateTicket(int managerChoice)
         {
             managerChoice = 0;
@@ -120,6 +136,11 @@ namespace BusinessLayer
         }
 
         Task<Employee> ILogin.IsSheEmployeeAsync(string x, string y, bool z)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Employee> ILogin.ExistsUserNameAsync(string x, string y, bool z, string a, string b)
         {
             throw new NotImplementedException();
         }
