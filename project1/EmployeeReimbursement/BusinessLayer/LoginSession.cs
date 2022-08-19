@@ -1,24 +1,32 @@
-using System.Security.Cryptography;
 using Models;
 using RepoLayer;
 
 namespace BusinessLayer
 {
-    public class LoginSession : ILogin, IGetIt
+    public class LoginSession
     {
-        private readonly adonetaccess _repo = new adonetaccess();
+        private adonetaccess _repoLayer = new adonetaccess();
 
         //readonly List<Employee> _empdirectory = new List<Employee>; //Create an Employee Directory to house all the employees
         //private readonly List<Credentials> _logins = new List<Credentials>(); //Create a catalog of login credentials
-        private Employee _CurrentLoginSession;
-        private Employee _CurrentEmployee;
+        private Credentials? _CurrentLoginSession = null;
+        public Employee? _CurrentEmployee;
 
-        /*public Credentials ExistsUserName(string username, string passcode)
+        /*public LoginSession(Employee q, Credentials c)
         {
-            Credentials? C1 = _repo.ExistsUserName(username, passcode);
+            this.E1 = q;
+            this.C1 = c;
+        }*/
+
+        public Employee E1 { get; set;} = null!;
+        public Credentials C1 { get; set;} = null!;
+
+        /*public Credentials ExistsUserName(string username, string password)
+        {
+            Credentials? C1 = _repo.ExistsUserName(username, password);
             if (C1 == null)
             {
-                this._CurrentLoginSession.C1 = new Credentials(username, passcode);
+                this._CurrentLoginSession.C1 = new Credentials(username, password);
                 return this._CurrentLoginSession.C1;
             }
             else
@@ -28,21 +36,24 @@ namespace BusinessLayer
             }
         }*/
 
-        public async Task<Employee> ExistsUserNameAsync(Guid employeeid, string username = "default", string passcode = "default", bool manager = false, string fname ="default", string lname = "default")
+
+        public async Task<bool> LogonAsync(string username, string password)
         {
-            Employee? c = await _repo.ExistsUserNameAsync(employeeid, username, passcode, manager, fname, lname);
-            if (c == null)
+            Employee? q = await this._repoLayer.GetUserNameAsync(username, password);
+            if (q != null && q.Username == username && q.Password == password) //If employee is in directory with this username and password
             {
-                this._CurrentLoginSession = new Employee(employeeid, username, passcode, manager, fname, lname);
-                return this._CurrentLoginSession;
+                _CurrentEmployee = q;
+                return true;
             }
-            else
-            {
-                this._CurrentLoginSession = c;
-                return this._CurrentLoginSession;
-            }
+            return false;
         }
 
+        public async Task <bool> RegisterAccountAsync(Employee q)
+        {
+            q.EmployeeID = Guid.NewGuid();
+            q.Manager = false;
+            return await this._repoLayer.InsertNewUserAsync(q);
+        }
         public async Task <bool>  IsSheManagerAsync(bool Manager)
         {
             if(Manager == true)
@@ -52,11 +63,12 @@ namespace BusinessLayer
             else return false;
         }
 
-       private readonly adonetaccess _repoLayer;
-       public LoginSession()
+       //private readonly adonetaccess _repoLayer;
+       /*public LoginSession(adonetaccess repo)
         {
+            _repoLayer = repo;
             this._repoLayer = new adonetaccess();
-        }
+        }*/
 
         public async Task <List<Ticket>?> PendingTicketsAsync(int type)
         {
@@ -68,81 +80,31 @@ namespace BusinessLayer
 
             return null;
         }
-        Ticket IGetIt.GetTicket()
-        {
-            throw new NotImplementedException();
-        }
 
-        public int UpdateTicket(int managerChoice)
+        /*public async Task <Employee> InsertNewUserNameAsync(Employee q)
         {
-            managerChoice = 0;
-            if (managerChoice == 1)
+            Employee? q = await _repo.InsertNewUserNameAsync(fname, lname, username, password);
+            if (q == null)
             {
-                return 1;
-            }
-            else if(managerChoice == 2)
-            {
-                return 2;
+                this._CurrentEmployee.E1 = new Employee(fname, lname, username, password);
+                return this._CurrentEmployee.E1;
             }
             else
             {
-                return 0;
+                this._CurrentEmployee.E1 = q;
+                return this._CurrentEmployee.E1;
             }
-        }
+
+        }*/
 
         public Employee GetE1()
         {
             return this._CurrentEmployee;
         }
 
-        public Employee GetC1()
+        public Credentials GetC1()
         {
             return this._CurrentLoginSession;
-        }
-
-        bool IGetIt.IsSheManager()
-        {
-            throw new NotImplementedException();
-        }
-
-        int IGetIt.ValidateReimbursementStatus()
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ILogin.PassCode(string[] x)
-        {
-            throw new NotImplementedException();
-        }
-
-        void ILogin.LogSession()
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ILogin.ValidateUserCredential(string userLoginStr)
-        {
-            throw new NotImplementedException();
-        }
-
-        int ILogin.EvaluateUserLogin()
-        {
-            throw new NotImplementedException();
-        }
-
-        void ILogin.GetAnError()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Employee> ILogin.IsSheEmployeeAsync(string x, string y, bool z)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Employee> ILogin.ExistsUserNameAsync(string x, string y, bool z, string a, string b)
-        {
-            throw new NotImplementedException();
         }
     }
 }
@@ -160,4 +122,17 @@ namespace BusinessLayer
                 this._CurrentEmployee = e;
                 return this._CurrentEmployee;
             }
+        }*/
+
+        /*        public async Task <bool> PersistsUserAsync(Employee q)
+        {
+            if (await this._repoLayer.ExistsUserNameAsync(q.EmployeeID))
+            {
+                if (await this._repoLayer.UpdateUserNameAsync(q) !=1) return false;
+            }
+            else if (await this._repoLayer.InsertNewUserNameAsync(q) !=1)
+            {
+                return false;
+            }
+            return true;
         }*/
