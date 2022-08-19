@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ namespace BusinessLayer
 {
     public interface IGetIt
     {
-        public Employee GetC1();
+        public Credentials GetC1();
         public Employee GetE1();
         public Ticket GetTicket();
         public bool IsSheManager();
@@ -17,4 +17,4 @@ namespace BusinessLayer
         //Task<string> PendingTicketsAsync();
         //Task<List<Ticket>> PendingTicketsAsync(string type);
     }
-}
+}*/

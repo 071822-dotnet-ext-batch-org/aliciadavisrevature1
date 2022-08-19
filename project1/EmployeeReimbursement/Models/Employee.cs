@@ -5,26 +5,25 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Employee 
+    public class Employee : Credentials
     {
         //public Employee() {} //parameterized constructor
-        public Employee(Guid employeeid, string fname, string lname, bool manager, string username, string passcode)
+        public Employee(string fname, string lname, string username, string password, bool manager, string employeeid)
         {
             this.EmployeeID = employeeid;
             this.Fname = fname;
             this.Lname = lname;
             this.Manager = manager;
             this.Username = username;
-            this.Password = passcode;
+            this.Password = password;
         }
 
-        public Guid EmployeeID { get; set; }//Unique Identifier
+        public string EmployeeID { get; set; }//Unique Identifier
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool Manager {get; set;}//true == yes, false == no
-        public string Passcode { get; }
     }//EoC
 }//EoN
 

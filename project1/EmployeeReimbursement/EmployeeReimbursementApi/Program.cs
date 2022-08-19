@@ -1,13 +1,4 @@
-using BusinessLayer;
-using Models;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace EmployeeReimbursementApi
-{
-public class Program
-{
-    public static void Main(string[] args)
-    {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -16,7 +7,7 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddScoped<LoginSession>();
+        //builder.Services.AddScoped<LoginSession>();
 
         var app = builder.Build();
 
@@ -34,6 +25,3 @@ public class Program
         app.MapControllers();
 
         app.Run();
-    }
-}//EoC
-}//EoN
