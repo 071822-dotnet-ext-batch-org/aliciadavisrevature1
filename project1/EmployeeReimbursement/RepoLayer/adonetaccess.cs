@@ -47,25 +47,21 @@ namespace RepoLayer
         public async Task<bool> ExistsUserNameAsync(Guid employeeid)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            using (SqlCommand command = new SqlCommand($"SELECT Top 1 * FROM Employees WHERE EmployeeID = @umployeeid", conn))
+            using SqlCommand command = new SqlCommand($"SELECT Top 1 * FROM Employees WHERE EmployeeID = @umployeeid", conn);
+            command.Parameters.AddWithValue("@employeeid", employeeid);//adding dynamic data will protect against
+            conn.Open();
+            SqlDataReader? ret = await command.ExecuteReaderAsync();
+            if (ret.Read())
             {
-                command.Parameters.AddWithValue("@employeeid", employeeid);//adding dynamic data will protect against
-                conn.Open();
-                SqlDataReader? ret = await command.ExecuteReaderAsync();
-                if(ret.Read())
-                {
-                    conn.Close();
-                    return true;
-                }
-                else
-                {
-                    conn.Close();
-                    return false;
-                }
-           }
+                conn.Close();
+                return true;
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
         }//EoExistsUserNameAsync
-
-
 
         public async Task<bool> InsertNewUserAsync(Employee q) //bool instead of int. Not sure how it started as int, but the insertion will either be a success or failure so use bool
         {
@@ -102,11 +98,11 @@ namespace RepoLayer
             return ret;
         }//EoSubmitNewTicketAsync
 
-        public async Task<bool?> IsSheManagerAsync(Guid employeeid)
+        public async Task<bool?> GetManagerAsync(Guid managerid)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            using SqlCommand command = new SqlCommand($"SELECT Manager FROM Employees WHERE EmployeeID = @employeeid", conn);
-            command.Parameters.AddWithValue("@employeeid", employeeid);
+            using SqlCommand command = new SqlCommand($"SELECT Manager FROM Employees WHERE EmployeeID = @managerid", conn);
+            command.Parameters.AddWithValue("@mangerid", managerid);
             conn.Open();
             SqlDataReader? ret = await command.ExecuteReaderAsync();
             if(ret.Read() && ret.GetBoolean(4))
@@ -116,14 +112,14 @@ namespace RepoLayer
             }
             conn.Close();
             return false;
-        }//EoIsSheManagerAsync
+        }//EoGetManagerAsync
 
-        public async Task<List<Ticket>> PendingTicketsAsync(int status) //Are there pending tickets? Grab them using this
+        public async Task<List<Ticket>> PendingTicketsAsync(int statusid) //Are there pending tickets? Grab them using this
         {
             List<Ticket> ticketList = new List<Ticket>();
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            using SqlCommand command = new SqlCommand($"SELECT * FROM Tickets WHERE Status = @status", conn);
-            command.Parameters.AddWithValue("@status", status);
+            using SqlCommand command = new SqlCommand($"SELECT * FROM Tickets WHERE Status = @statusid", conn);
+            command.Parameters.AddWithValue("@statusid", statusid);
             conn.Open();
             SqlDataReader? ret = await command.ExecuteReaderAsync();
             while (ret.Read())
@@ -132,8 +128,8 @@ namespace RepoLayer
                     ret.GetDecimal(0),
                     ret.GetString(1),
                     ret.GetInt32(2),
-                    (Guid)ret[3],
-                    (Guid)ret[4]
+                    ret.GetString(3),
+                    ret.GetString(4)
                     );
                     ticketList.Add(t);
             }
@@ -147,7 +143,7 @@ namespace RepoLayer
             throw new NotImplementedException();
         }*/
 
-        public async Task<ProcessedTicketDto> ProcessTicketAsync(Guid ticketid, int status)
+        /*public async Task<ProcessedTicketDto> ProcessTicketAsync(Guid ticketid, int status)
         {
             SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             using SqlCommand command = new SqlCommand($"UPDATE Tickets SET Status = @s WHERE TicketID = @x AND Status = 0", conn); //Don't update tickets unless they are pending
@@ -163,9 +159,9 @@ namespace RepoLayer
             }
             conn.Close();
             return null;
-        }//EoProcessTicketAsync
+        }//EoProcessTicketAsync*/
 
-        private async Task<ProcessedTicketDto> ProcessTicketIDAsync(Guid ticketid)
+        /*private async Task<ProcessedTicketDto> ProcessTicketIDAsync(Guid ticketid)
     {
         SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         using (SqlCommand cmd = new SqlCommand($"UPDATE Tickets SET TicketID = @ticketid", conn));
@@ -186,7 +182,18 @@ namespace RepoLayer
             conn.Close();
             return null;
         }
-    }
+    }*/
+
+            public async Task<int> UpdateTicketAsync(Ticket t)
+        {
+            SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            using SqlCommand command = new SqlCommand($"UPDATE Tickets SET Status = @a WHERE Status = @e ", conn);
+            command.Parameters.AddWithValue("@a", t.Status);
+            conn.Open();
+            int ret = await command.ExecuteNonQueryAsync();
+            conn.Close();
+            return ret;
+        }//EoUpdateUserNameAsync
 
         public async Task<int> UpdateUserNameAsync(Employee q)
         {
@@ -214,11 +221,11 @@ namespace RepoLayer
             if (ret.Read())
             {
                 Ticket? t = null;
-                t.TicketID = ret.GetGuid(0);
+                t.TicketID = ret.GetString(0);
                 t.Amount = ret.GetDecimal(1);
                 t.Description = ret.GetString(2);
                 t.Status = ret.GetInt32(3);
-                t.EmployeeID = ret.GetGuid(4);
+                t.EmployeeID = ret.GetString(4);
                 conn.Close();
                 return t;
             }
@@ -259,3 +266,19 @@ namespace RepoLayer
                 }
             }
         } */
+        
+        /*public async Task<bool?> IsSheManagerAsync(Guid employeeid)
+        {
+            SqlConnection conn = new SqlConnection("Server=tcp:alicia-davis.database.windows.net,1433;Initial Catalog=Expense Reimbursement System P1;Persist Security Info=False;User ID=aliciadavisrevature;Password=Thisisonly1test2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            using SqlCommand command = new SqlCommand($"SELECT Manager FROM Employees WHERE EmployeeID = @employeeid", conn);
+            command.Parameters.AddWithValue("@employeeid", employeeid);
+            conn.Open();
+            SqlDataReader? ret = await command.ExecuteReaderAsync();
+            if(ret.Read() && ret.GetBoolean(4))
+            {
+                conn.Close();
+                return true;
+            }
+            conn.Close();
+            return false;
+        }//EoIsSheManagerAsync*/
