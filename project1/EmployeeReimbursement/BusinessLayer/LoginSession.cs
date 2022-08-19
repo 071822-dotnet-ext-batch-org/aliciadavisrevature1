@@ -54,14 +54,67 @@ namespace BusinessLayer
             q.Manager = false;
             return await this._repoLayer.InsertNewUserAsync(q);
         }
-        public async Task <bool>  IsSheManagerAsync(bool Manager)
+
+        public async Task <bool> SubmitTicketAsync (Ticket t)
+        {
+            t.TicketID = Guid.NewGuid();
+            return await this._repoLayer.SubmitNewTicketAsync(t);
+        }
+
+        public async Task<ProcessedTicketDto> ProcessPendingTicketsAsync(PendingDTO p)
+        {
+            if (await this._repoLayer.IsSheManagerAsync(p.employeeid))
+            {
+                ProcessedTicketDto processedTicket = await this._repoLayer.ProcessTicketAsync(p.ticketid, p.status);
+                return processedTicket;
+            }
+            return null;
+        }
+
+        /*public async Task<Request?> TicketAsync(TicketsDTO Ticketobject)
+        {//we want the ticket object to be the same as the APIController
+            Request ticketRequest = new Request(Guid.NewGuid(), Ticketobject.idEmployee, Ticketobject.Details, Ticketobject.Amount, Ticketobject.Type);
+            //Guid.NewGuid() becomes the new requestID
+
+            if (await this._Repository.TicketRequestAsync(ticketRequest))
+            {
+                return ticketRequest;
+            }
+            else return null;
+        }*/
+
+        /*public async Task<bool> ProcessPendingTicketsAsync(PendingDTO p)
+        {
+            Employee? q = await this._repoLayer.IsSheManagerAsync(p.manager);
+            Ticket? ticketList = await _repoLayer.PendingTicketsAsync(p.status);
+
+            return q.Manager && ticketList?.Status == 0; //Ternary statement to determine if the user is a manger and if the ticket is pending
+
+            if (p.status == 1)
+            {
+                ticketList.Status = 1;
+            }
+            else if (p.status == 2)
+            {
+                ticketList.Status = 2;
+            }
+            else
+            {
+                ticketList.Status = 0;
+            }
+
+            bool isSuccess = await this._repoLayer.UpdateTicketAsync(ticketList);
+            return isSuccess;
+        }*/
+
+        /*public async Task <bool>  IsSheManagerAsync(bool Manager)
         {
             if(Manager == true)
             {
                 return true;
             }
             else return false;
-        }
+        }*/
 
        //private readonly adonetaccess _repoLayer;
        /*public LoginSession(adonetaccess repo)
@@ -69,17 +122,6 @@ namespace BusinessLayer
             _repoLayer = repo;
             this._repoLayer = new adonetaccess();
         }*/
-
-        public async Task <List<Ticket>?> PendingTicketsAsync(int type)
-        {
-            List<Ticket> list = await this._repoLayer.PendingTicketsAsync(type);
-            if (list != null)
-            {
-                return list;
-            }
-
-            return null;
-        }
 
         /*public async Task <Employee> InsertNewUserNameAsync(Employee q)
         {
@@ -136,3 +178,15 @@ namespace BusinessLayer
             }
             return true;
         }*/
+
+        /*        public async Task <List<Ticket>?> PendingTicketsAsync(int type)
+        {
+            List<Ticket> list = await this._repoLayer.PendingTicketsAsync(type);
+            if (list != null)
+            {
+                return list;
+            }
+
+            return null;
+        }*/
+

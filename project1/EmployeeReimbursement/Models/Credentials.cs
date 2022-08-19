@@ -12,10 +12,10 @@ namespace Models
         public string Password { get; set; }
         public Credentials() {}
         //parameterized constructor
-        public Credentials(string username, string passcode)
+        public Credentials(string username, string password)
         {
             this.Username = username;
-            this.Password = passcode;
+            this.Password = password;
         }
     }
 }

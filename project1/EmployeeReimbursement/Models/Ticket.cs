@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Ticket : IStatus
+    public class Ticket
     {
         //public Ticket() {} //parameterized constructor
         public Ticket(decimal amount, string description, int status, Guid ticketid, Guid employeeid)

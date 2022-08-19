@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Employee: Credentials
+    public class Employee : Credentials
     {
         //public Employee() {} //parameterized constructor
         public Employee(string fname, string lname, string username, string password, bool manager, Guid employeeid)
