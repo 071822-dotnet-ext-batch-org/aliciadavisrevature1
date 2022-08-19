@@ -7,16 +7,16 @@ namespace Models
 {
     public class PendingDTO //Useful ad hoc structure for grouping these pending ticket values and sending it around the program. In this case values from multiple class objects
     {
-        public PendingDTO(Guid employeeid, bool manager, Guid ticketid, int status)
+        public PendingDTO(int managerid, bool themanager, int statusid, int newstatus)
         {
-            this.employeeid = employeeid;
-            this.manager = manager;
-            this.ticketid = ticketid;
-            this.status = status;
+            this.mangerid = mangerid;
+            this.themanager = themanager;
+            this.statusid = statusid;
+            this.newstatus = newstatus;
         }
-        public Guid employeeid { get; set;}
-        public bool manager { get; set;}
-        public Guid ticketid { get; set;}
-        public int status { get; set;}
+        public int mangerid { get; set;}
+        public bool themanager { get; set;}
+        public int statusid { get; set;}
+        public int newstatus { get; set;}
     }
 }

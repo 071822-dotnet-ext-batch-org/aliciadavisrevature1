@@ -12,6 +12,8 @@ namespace BusinessLayer
         private Credentials? _CurrentLoginSession = null;
         public Employee? _CurrentEmployee;
 
+        public Ticket? _CurrentTicket;
+
         /*public LoginSession(Employee q, Credentials c)
         {
             this.E1 = q;
@@ -50,18 +52,50 @@ namespace BusinessLayer
 
         public async Task <bool> RegisterAccountAsync(Employee q)
         {
-            q.EmployeeID = Guid.NewGuid();
+            q.EmployeeID = " ";
             q.Manager = false;
             return await this._repoLayer.InsertNewUserAsync(q);
         }
 
         public async Task <bool> SubmitTicketAsync (Ticket t)
         {
-            t.TicketID = Guid.NewGuid();
+            //t.TicketID = Guid.NewGuid();
             return await this._repoLayer.SubmitNewTicketAsync(t);
         }
 
-        public async Task<ProcessedTicketDto> ProcessPendingTicketsAsync(PendingDTO p)
+
+        public async Task<bool> ProcessPendingTicketsAsync(PendingDTO pdt)
+        {
+            Employee employee = await this._repoLayer.GetManagerAsync(pdt.GetType);
+            Ticket t = await this._repoLayer.PendingTicketsAsync(pdt.statusid);
+
+            return employee.Manager && t?.Status == 0; //Ternary statement to determine if the user is a manger and if the ticket is pending
+
+            if (pdt.newstatus == 1)
+            {
+                pdt.newstatus = 1;
+            }
+            else if (pdt.newstatus == 2)
+            {
+                pdt.newstatus = 2;
+            }
+            else
+            {
+                pdt.newstatus = 0;
+            }
+
+            bool isSuccess = await this._repoLayer.UpdateTicketAsync(t);
+            return isSuccess;
+        }
+
+        public async Task <List<Ticket>> GetTicketsAsync(int status)
+        {
+            List<Ticket> ticketList = await this._repoLayer.GetTicketAsync(status);
+            return ticketList;
+        }
+
+
+       /* public async Task<ProcessedTicketDto> ProcessPendingTicketsAsync(PendingDTO p)
         {
             if (await this._repoLayer.IsSheManagerAsync(p.employeeid))
             {
@@ -69,7 +103,7 @@ namespace BusinessLayer
                 return processedTicket;
             }
             return null;
-        }
+        }*/
 
         /*public async Task<Request?> TicketAsync(TicketsDTO Ticketobject)
         {//we want the ticket object to be the same as the APIController
@@ -81,30 +115,6 @@ namespace BusinessLayer
                 return ticketRequest;
             }
             else return null;
-        }*/
-
-        /*public async Task<bool> ProcessPendingTicketsAsync(PendingDTO p)
-        {
-            Employee? q = await this._repoLayer.IsSheManagerAsync(p.manager);
-            Ticket? ticketList = await _repoLayer.PendingTicketsAsync(p.status);
-
-            return q.Manager && ticketList?.Status == 0; //Ternary statement to determine if the user is a manger and if the ticket is pending
-
-            if (p.status == 1)
-            {
-                ticketList.Status = 1;
-            }
-            else if (p.status == 2)
-            {
-                ticketList.Status = 2;
-            }
-            else
-            {
-                ticketList.Status = 0;
-            }
-
-            bool isSuccess = await this._repoLayer.UpdateTicketAsync(ticketList);
-            return isSuccess;
         }*/
 
         /*public async Task <bool>  IsSheManagerAsync(bool Manager)

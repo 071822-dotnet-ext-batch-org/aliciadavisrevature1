@@ -8,7 +8,7 @@ namespace Models
     public class Ticket
     {
         //public Ticket() {} //parameterized constructor
-        public Ticket(decimal amount, string description, int status, Guid ticketid, Guid employeeid)
+        public Ticket(decimal amount, string description, int status, string ticketid, string employeeid)
         {
             this.Amount = amount;
             this.Description = description;
@@ -17,8 +17,8 @@ namespace Models
             this.EmployeeID = employeeid;
         }
 
-        new public Guid EmployeeID { get; set; }
-        public Guid TicketID { get; set; }
+        new public string EmployeeID { get; set; }
+        public string TicketID { get; set; }
         public decimal Amount { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }

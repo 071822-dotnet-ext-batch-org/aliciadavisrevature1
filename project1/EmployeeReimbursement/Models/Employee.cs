@@ -8,7 +8,7 @@ namespace Models
     public class Employee : Credentials
     {
         //public Employee() {} //parameterized constructor
-        public Employee(string fname, string lname, string username, string password, bool manager, Guid employeeid)
+        public Employee(string fname, string lname, string username, string password, bool manager, string employeeid)
         {
             this.EmployeeID = employeeid;
             this.Fname = fname;
@@ -18,7 +18,7 @@ namespace Models
             this.Password = password;
         }
 
-        public Guid EmployeeID { get; set; } = Guid.NewGuid();//Unique Identifier
+        public string EmployeeID { get; set; }//Unique Identifier
         public string Fname { get; set; }
         public string Lname { get; set; }
         public string Username { get; set; }
