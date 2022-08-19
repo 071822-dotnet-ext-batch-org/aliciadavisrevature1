@@ -122,4 +122,92 @@ LEFT JOIN Addresses A on O.FK_Address = A.AddressId;
 SELECT FirstName, LastName As "That Person", NumberStreet, City, ZipCode
 FROM Customers C 
 RIGHT JOIN [dbo].[CustomerAddressJunction] J ON C.CustomerId = FK_Customer
+
 RIGHT JOIN Addresses A on J.FK_Address = A.AddressId;
+
+RIGHT JOIN Addresses A on J.FK_Address = A.AddressId;
+
+--Query 4 Insertions, Deletions with Unions and Triggers
+-- 1) create a table to hold the mending data.
+CREATE TABLE Customer_Audit(
+ChangeID INT PRIMARY KEY IDENTITY(1,1),
+CustomerID INT NOT NULL,
+FirstName NVARCHAR(30),
+LastName NVARCHAR(30),
+UpdatedAt DATETIME DEFAULT(GETDATE()),
+OperationType CHAR(3),
+CONSTRAINT Opp_Type_Ins_or_Del CHECK(OperationType = 'DEL' OR OperationType = 'INS')
+);
+
+--2) Create the AFTER trigger
+CREATE TRIGGER CustomerAdded ON Customers
+AFTER INSERT, DELETE
+AS
+	INSERT INTO Customer_Audit(CustomerID, FirstName, LastName, OperationType)
+		SELECT CustomerID, FirstName, LastName, 'INS'
+		FROM INSERTED
+UNION
+	SELECT CustomerID, FirstName, LastName, 'DEL'
+	FROM DELETED
+
+
+SELECT *
+FROM Customer_Audit;
+
+INSERT INTO Customers(FirstName, LastName)
+VALUES ('John', 'Wayne');
+
+--Query 5 Stored Procedures
+-- Stored Procedure
+CREATE PROCEDURE GetFirstCustomerAsc
+AS
+	SELECT TOP 1 FirstName 
+	FROM Customers 
+	ORDER BY FirstName ASC;
+
+EXEC GetFirstCustomerAsc;
+
+--Procedure to get how many addresses there are (with variables)
+CREATE PROCEDURE GetNumAddresses(
+	@FirstName NVARCHAR(30),
+	@NumAddys INT OUTPUT)
+AS
+BEGIN
+	SELECT @NumAddys = Count(*)	FROM Addresses;
+	SELECT FirstName FROM Customers 
+	WHERE FirstName = @FirstName;
+END;
+
+--declare some scalar(single value) variables
+DECLARE @myVar INT;
+DECLARE @LastNameDesc NVARCHAR(30)
+
+--set the value of the scalar variable
+SET @LastNameDesc =(SELECT TOP 1 FirstName FROM Customers ORDER BY FirstName DESC)
+
+--execute the procedure
+EXEC GetNumAddresses @LastNameDesc, @myVar OUTPUT;
+
+--print the value of the scalar variable to the screen
+SELECT @myVar
+
+--Create a function to calculate revenue of sold units at certain price over a number of days
+CREATE FUNCTION dbo.Revenue
+(
+	@unitsSold INT,
+	@unitPrice DEC(20,2),
+	@numberDays DEC(20,2)
+)
+RETURNS DEC(20,2)
+AS
+BEGIN
+	RETURN
+	 @unitsSold*@unitPrice*@numberDays;
+END
+
+
+SELECT dbo.Revenue (200, 100, 7)
+AS
+	Revenue
+
+DROP FUNCTION dbo.Revenue;

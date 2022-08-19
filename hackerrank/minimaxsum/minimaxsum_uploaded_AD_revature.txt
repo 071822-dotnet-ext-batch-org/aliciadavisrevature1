@@ -1,0 +1,55 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Result
+{
+
+    /*
+     * Complete the 'miniMaxSum' function below.
+     *
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+
+    public static void miniMaxSum(List<int> arr)
+    {
+        arr.Sort(); //sort the array
+        long mini = 0; //long 64 bit version of minimum sum initialized at value of 0
+        long maxi = 0; //long 64 bit version of maximum sum initialized at value of 0
+        var array = arr.ToArray(); //build array to change var to what it contains. Should be one and not                                       merely short integer
+
+        for (int i = 0; i < 4; i++) //iterate over first 4 of the 5 values counting up
+        {
+            mini += array[i]; //sum first 4 of 5 values
+        }
+
+        for (int i = 4; i > 0; i--) //iterate over last 4 of 5 values counting down
+        {
+            maxi += array[i]; //sum last 4 of 5 values
+        }
+
+        Console.WriteLine("{0} {1}", mini, maxi); //composite format to output minimum and maximum sums
+    }
+
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+
+        List<int> arr = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arrTemp => Convert.ToInt32(arrTemp)).ToList();
+
+        Result.miniMaxSum(arr);
+    }
+}

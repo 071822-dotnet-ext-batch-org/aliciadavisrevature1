@@ -2,7 +2,7 @@ using System;
 
 namespace polyinherit
 {
-class Dog : Animal  // Derived class (child). Use the ":" in order to inherit from the class "Animal"
+class Dog : Animal  // Derived class (child). Use the ":" in order to inherit from the class "Animal". Has single responsibility to define Dog.
 {
   public override void animalSound() 
   {
@@ -13,5 +13,5 @@ class Dog : Animal  // Derived class (child). Use the ":" in order to inherit fr
   {
     Console.WriteLine("The dog has 4 legs");
   }
-}
+}//EoC
 }//EoN
