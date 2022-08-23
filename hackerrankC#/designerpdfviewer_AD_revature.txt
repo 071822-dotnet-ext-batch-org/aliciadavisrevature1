@@ -1,0 +1,60 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Result
+{
+
+    /*
+     * Complete the 'designerPdfViewer' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY h
+     *  2. STRING word
+     */
+
+    public static int designerPdfViewer(List<int> h, string word)
+    {
+        char[] arr = word.ToCharArray();//Establish a character array for the string 'word'. ToCharArray will copy the letters in the string to the array
+        int tallest = 0;//Store tallest letter height for the word here
+        for (int i=0; i<arr.Length; i++)//Iterate over the length of the string
+        {
+            if (h[(int)arr[i]-97] > tallest)//If the height of the letter is taller than varaible tallest
+            {
+                tallest = h[(int)arr[i]-97];//Set height of the letter to the tallest variable
+            }
+        }
+       return tallest * arr.Length; //Return the calculation of the length of the word times the height of the tallest letter
+    }
+
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        List<int> h = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(hTemp => Convert.ToInt32(hTemp)).ToList();
+
+        string word = Console.ReadLine();
+
+        int result = Result.designerPdfViewer(h, word);
+
+        textWriter.WriteLine(result);
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
+}

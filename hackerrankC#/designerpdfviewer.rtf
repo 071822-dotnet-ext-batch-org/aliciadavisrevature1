@@ -1,0 +1,24 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf610
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue254;\red0\green0\blue255;
+\red22\green107\blue41;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c99608;\cssrgb\c0\c0\c100000;
+\cssrgb\c7451\c48627\c21176;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl460\partightenfactor0
+
+\f0\fs30 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\'a0\'a0\'a0\'a0\cf4 public\cf2 \'a0\cf4 static\cf2 \'a0\cf4 int\cf2 \'a0designerPdfViewer(List<\cf4 int\cf2 >\'a0h,\'a0\cf4 string\cf2 \'a0word)\cb1 \
+\cb3 \'a0\'a0\'a0\'a0\{\cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 char\cf2 []\'a0arr\'a0=\'a0word.ToCharArray();\cf5 //Establish\'a0a\'a0character\'a0array\'a0for\'a0the\'a0string\'a0'word'.\'a0ToCharArray\'a0will\'a0copy\'a0the\'a0letters\'a0in\'a0the\'a0string\'a0to\'a0the\'a0array\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 int\cf2 \'a0tallest\'a0=\'a0\cf5 0\cf2 ;\cf5 //Store\'a0tallest\'a0letter\'a0height\'a0for\'a0the\'a0word\'a0here\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 for\cf2 \'a0(\cf4 int\cf2 \'a0i=\cf5 0\cf2 ;\'a0i<arr.Length;\'a0i++)\cf5 //Iterate\'a0over\'a0the\'a0length\'a0of\'a0the\'a0string\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\{\cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 if\cf2 \'a0(h[(\cf4 int\cf2 )arr[i]-\cf5 97\cf2 ]\'a0>\'a0tallest)\cf5 //If\'a0the\'a0height\'a0of\'a0the\'a0letter\'a0is\'a0taller\'a0than\'a0varaible\'a0tallest\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\{\cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0tallest\'a0=\'a0h[(\cf4 int\cf2 )arr[i]-\cf5 97\cf2 ];\cf5 //Set\'a0height\'a0of\'a0the\'a0letter\'a0to\'a0the\'a0tallest\'a0variable\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\}\cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\}\cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 return\cf2 \'a0tallest\'a0*\'a0arr.Length;\'a0\cf5 //Return\'a0the\'a0calculation\'a0of\'a0the\'a0length\'a0of\'a0the\'a0word\'a0times\'a0the\'a0height\'a0of\'a0the\'a0tallest\'a0letter\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\}}
