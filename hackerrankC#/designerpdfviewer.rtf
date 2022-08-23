@@ -15,7 +15,7 @@
 \cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 int\cf2 \'a0tallest\'a0=\'a0\cf5 0\cf2 ;\cf5 //Store\'a0tallest\'a0letter\'a0height\'a0for\'a0the\'a0word\'a0here\cf2 \cb1 \
 \cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 for\cf2 \'a0(\cf4 int\cf2 \'a0i=\cf5 0\cf2 ;\'a0i<arr.Length;\'a0i++)\cf5 //Iterate\'a0over\'a0the\'a0length\'a0of\'a0the\'a0string\cf2 \cb1 \
 \cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\{\cb1 \
-\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 if\cf2 \'a0(h[(\cf4 int\cf2 )arr[i]-\cf5 97\cf2 ]\'a0>\'a0tallest)\cf5 //If\'a0the\'a0height\'a0of\'a0the\'a0letter\'a0is\'a0taller\'a0than\'a0varaible\'a0tallest\cf2 \cb1 \
+\cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf4 if\cf2 \'a0(h[(\cf4 int\cf2 )arr[i]-\cf5 97\cf2 ]\'a0>\'a0tallest)\cf5 /If the height of the letter is taller than variable tallest. Adjust unicode scalar values by subtracting 97. This will give the position of the letter between 0 and 25. Example: 'a' is 97. Subtract 97 and get position 0 in the arr.\cf2 \cb1 \
 \cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\{\cb1 \
 \cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0tallest\'a0=\'a0h[(\cf4 int\cf2 )arr[i]-\cf5 97\cf2 ];\cf5 //Set\'a0height\'a0of\'a0the\'a0letter\'a0to\'a0the\'a0tallest\'a0variable\cf2 \cb1 \
 \cb3 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\}\cb1 \

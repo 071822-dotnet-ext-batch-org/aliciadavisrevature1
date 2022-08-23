@@ -30,7 +30,7 @@ class Result
         int tallest = 0;//Store tallest letter height for the word here
         for (int i=0; i<arr.Length; i++)//Iterate over the length of the string
         {
-            if (h[(int)arr[i]-97] > tallest)//If the height of the letter is taller than varaible tallest
+            if (h[(int)arr[i]-97] > tallest)//If the height of the letter is taller than variable tallest. Adjust unicode scalar values by subtracting 97. This will give the position of the letter between 0 and 25. Example: 'a' is 97. Subtract 97 and get position 0 in the arr.
             {
                 tallest = h[(int)arr[i]-97];//Set height of the letter to the tallest variable
             }

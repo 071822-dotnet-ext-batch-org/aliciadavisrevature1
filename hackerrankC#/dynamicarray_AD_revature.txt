@@ -30,7 +30,7 @@ class Result
         for (int i = 0; i < n; i++) //Iterate over 
             arr.Add(new List<int>());//Add to the array
             
-        List<int> result = new List<int>();//Store the result of each type 2 query here
+        List<int> result = new List<int>();//Store the result of each type query here
         int lastAnswer = 0; //Declare an integer, lastAnswer, and initialize it to 0.
 
         for (int i = 0; i < queries.Count; i++) //Iterate over the queries
@@ -38,14 +38,14 @@ class Result
             int x = queries[i][1]; //Initialize x here
             int y = queries[i][2]; //Initialize y here
             int index = ((x ^ lastAnswer) % n);//Remainder of x(XOR) value divided by the integer n. True if and only if arguments differ
-            if (queries[i][0] == 1) //If query is equal to 1
+            if (queries[i][0] == 1) //If query type is equal to 1 (XOR is true the arguments are different)
             {
-                arr[index].Add(y); //Add y to array
+                arr[index].Add(y); //Add y (second value) to array (if XOR is true)
             }
-            else if (queries[i][0] == 2) //If query is equal to 2
+            else if (queries[i][0] == 2) //If query type is equal to 2 (XOR is true the arguments are different)
             {
-                lastAnswer = arr[index][y % arr[index].Count]; //Store new value of lastAnswer here
-                result.Add(lastAnswer); //Add lastAnswer to the result
+                lastAnswer = arr[index][y % arr[index].Count]; //Store new value of lastAnswer here which is the queried value [i] in the arr % n (if XOR is true)
+                result.Add(lastAnswer); //Add lastAnswer to the result list
             }
         }
         return result; //Return the result
