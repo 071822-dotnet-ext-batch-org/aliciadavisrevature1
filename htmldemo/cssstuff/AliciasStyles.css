@@ -17,3 +17,7 @@ body{
     background-color: honeydew;
     width: fit-content;
 }
+
+.verticalLine {
+    border-left: solid black;
+  }
