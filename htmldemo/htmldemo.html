@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,17 +45,17 @@
 
     <ul>
         <li>1st Item</li>
-        <li>2nd Item</li>
+        <li id="ulli">2nd Item</li>
         <li>3rd Item</li>
         <li>4th Item</li>
         <li>5th Item</li>
     </ul>
 
-    <ol>
+    <ol class="oli">
         <li>1st Item</li>
         <li>2nd Item</li>
         <li>3rd Item</li>
-        <li>4th Item</li>
+        <li class="oli1">4th Item</li>
         <li>5th Item</li>
     </ol>
 
@@ -74,6 +75,37 @@
             </tr>
         </tbody>
     </table>
+
+    <ol id="adjSibling">
+        <li id="adjSibling">1st Item</li>
+        <li>2nd Item</li>
+        <li>3rd Item</li>
+        <li>
+            <ol>
+                <li>sub element</li>
+            </ol>
+        </li>
+        <li>5th Item</li>
+    </ol>
+
+    <p class="pclass"> I'm a paragraph</p>
+    <h1>I'm an H1</h1>
+    <h4>I'm an H4</h4>
+    <h1>I'm an H1...
+        <span>I'm a span!</span>
+    </h1>
+
+    <p class="mm">I'm mm</p>
+    <p class="cm">I'm cm</p>
+    <p class="inches">I'm inches</p>
+    <p class="points">I'm points</p>
+    <p class="picas">I'm picas</p>
+    <p class="em">I'm em</p>
+    <p class="rem">I'm rem</p>
+    <p class="vh">I'm vh</p>
+    <p class="vw">I'm vw</p>
+
+    <p class="box">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt, reiciendis itaque consequuntur dignissimos pariatur fugit optio nam assumenda cum, fugiat sint mollitia earum temporibus totam magnam, ullam consequatur? Rerum, commodi!</p>
 
     <form action="" method="get" style="border: solid mediumslateblue; border-width: 5px; width: fit-content;">
         <label for="email">Email:</label>
@@ -104,7 +136,7 @@
     <div class="verticalLine">
        twitter
       </div>
-
+      
 </body>
 
 </html>
