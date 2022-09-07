@@ -165,3 +165,11 @@ console.log(`mynested returned ${mynested1()}`);
 console.log(`mynested returned ${mynested1()}`);
 console.log(`mynested returned ${mynested1()}`);
 console.log(`mynested returned ${mynested1()}`);
+
+let g1 = {
+    name1: 'Grogu',
+    age: 50,
+    mydeets: () =>  `${this.name1} is ${this.age} years old.`
+}
+
+console.log(g1.mydeets());
